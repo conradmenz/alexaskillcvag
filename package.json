@@ -1,8 +1,9 @@
 {
-  "name": "alexa-skill-kit-sdk-factskill",
+  "name": "alexa-skill-haltestelle-weststraße-chemnitz",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "alexa-sdk": "^1.0.10"
+    "alexa-sdk": "^1.0.10",
+    "moment-timezone": "^0.5.14"
   }
 }
