@@ -37,7 +37,10 @@ CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
 		var time = new Date(stops[0].plannedDeparture);
 	}
 	var line = stops[0].line;
-	var result = time.getHours() + 1 + ':' + time.getMinutes() + ' Uhr fährt der nächste Bus der Linie ' + line;
+	var result = _.template('${time} Uhr fährt der nächste Bus der Linie ${line}')({
+		time: time.getHours() + 1 + ':' + time.getMinutes(),
+		line: line
+	});
 	return result;
 }
 
