@@ -45,7 +45,7 @@ const handlers = {
                 var response = JSON.parse(body);        
                 var time = new Date(response.stops[0].actualDeparture);
                 var line = response.stops[0].line;
-                var answer = time.getHours() + 1 + ':' + time.getMinutes() + ' Uhr fährt der nächste Bus der Linie ' + line
+                var answer = time.getHours() + 1 + ':' + time.getMinutes() + ' Uhr fährt der nächste Bus der Linie ' + line;
                 self.emit(':tell', answer);
                 console.log('end');
             })}).on('error', function(e) {

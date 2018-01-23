@@ -19,5 +19,42 @@ describe('CVAGDataHelper', function() {
 				return expect(value).to.eventually.be.a('array');
 	        });
 		});
+		context('with an invalid station id', function() {
+			it('returns no array of next departures', function() {
+				station_id = '4711';
+				return expect(subject.requestNextDepartures(station_id)).to.be.rejectedWith(Error);
+			});
+		});
+	});
+	describe('#formatFirstDeparture', function() {
+		var stops = [{
+			"destination": "Heimgarten",
+			"serviceType": "BUS",
+			"hasActualDeparture": true,
+			"actualDeparture": 1516692660000,
+			"line": "72",
+			"platform": null
+		},
+		{
+			"destination": "Rottluff",
+			"serviceType": "BUS",
+			"hasActualDeparture": true,
+			"actualDeparture": 1516692745000,
+			"line": "72",
+			"platform": null
+		}];
+		context('with an array containing an actual departure', function() {
+			it('formats the first departure as expected', function() {
+				expect(subject.formatFirstDeparture(stops)).to.eq('9:31 Uhr fährt der nächste Bus der Linie 72');
+			});
+		});
+		stops[0].hasActualDeparture = false;
+		stops[0].plannedDeparture = 1516692660000;
+		stops[0].actualDeparture = null;
+		context('with an array containing no actual departure', function() {
+			it('formats the first departure as expected', function() {
+				expect(subject.formatFirstDeparture(stops)).to.eq('9:31 Uhr fährt der nächste Bus der Linie 72');
+			});
+		});
 	});
 });

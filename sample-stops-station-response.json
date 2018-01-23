@@ -1,0 +1,51 @@
+{
+	"stops": [{
+		"destination": "Heimgarten",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516692660000,
+		"line": "72",
+		"platform": null
+	},
+	{
+		"destination": "Rottluff",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516692745000,
+		"line": "72",
+		"platform": null
+	},
+	{
+		"destination": "Gablenz",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516693260000,
+		"line": "62",
+		"platform": null
+	},
+	{
+		"destination": "Flemmingstr.",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516693387000,
+		"line": "62",
+		"platform": null
+	},
+	{
+		"destination": "Heimgarten",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516693860000,
+		"line": "72",
+		"platform": null
+	},
+	{
+		"destination": "Rottluff",
+		"serviceType": "BUS",
+		"hasActualDeparture": true,
+		"actualDeparture": 1516693920000,
+		"line": "72",
+		"platform": null
+	}],
+	"now": 1516692581813
+}
