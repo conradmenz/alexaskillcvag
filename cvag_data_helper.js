@@ -31,6 +31,10 @@ CVAGDataHelper.prototype.getNextDepartures = function(stationID) {
 };
 
 CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
+	var formatTime = function(time) {
+		return time.getHours() + 1 + ':' + _.padStart(time.getMinutes(), 2, '0');
+	}
+
 	if (stops[0].hasActualDeparture) {
 		var time = new Date(stops[0].actualDeparture);
 	} else {
@@ -38,7 +42,7 @@ CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
 	}
 	var line = stops[0].line;
 	var result = _.template('${time} Uhr fährt der nächste Bus der Linie ${line}')({
-		time: time.getHours() + 1 + ':' + time.getMinutes(),
+		time: formatTime(time),
 		line: line
 	});
 	return result;
