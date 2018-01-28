@@ -45,13 +45,13 @@ describe('CVAGDataHelper', function() {
 		}];
 		context('with an array containing an actual departure', function() {
 			it('formats the first departure as expected', function() {
-				expect(subject.formatFirstDeparture(stops)).to.eq('11:31 Uhr fährt der nächste Bus der Linie 72');
+				expect(subject.formatFirstDeparture(stops)).to.eq('11:31 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
 		context('with an array containing an actual single digit departure', function() {
 			it('formats the first departure as expected', function() {
 				stops[0].actualDeparture = 1519715100000;
-				expect(subject.formatFirstDeparture(stops)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72');
+				expect(subject.formatFirstDeparture(stops)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
 		context('with an array containing a planned departure', function() {
@@ -59,7 +59,7 @@ describe('CVAGDataHelper', function() {
 				stops[0].hasActualDeparture = false;
 				stops[0].plannedDeparture = 1519723860000;
 				stops[0].actualDeparture = null;
-				expect(subject.formatFirstDeparture(stops)).to.eq('11:31 Uhr fährt der nächste Bus der Linie 72');
+				expect(subject.formatFirstDeparture(stops)).to.eq('11:31 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
 	});
