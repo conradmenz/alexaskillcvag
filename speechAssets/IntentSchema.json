@@ -1,0 +1,143 @@
+{
+    "languageModel": {
+      "types": [
+        {
+          "name": "directionName",
+          "values": [
+            {
+              "id": "1",
+              "name": {
+                "value": "Stadtwärts",
+                "synonyms": [
+                  "Gablenz",
+                  "Heimgarten"
+                ]
+              }
+            },
+            {
+              "id": "0",
+              "name": {
+                "value": "Landwärts",
+                "synonyms": [
+                  "Rottluff",
+                  "Flemmingstraße"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "stationName",
+          "values": [
+            {
+              "id": null,
+              "name": {
+                "value": "Weststraße",
+                "synonyms": []
+              }
+            },
+            {
+              "id": null,
+              "name": {
+                "value": "Kaßbergauffahrt",
+                "synonyms": []
+              }
+            },
+            {
+              "id": null,
+              "name": {
+                "value": "Innere Klosterstraße",
+                "synonyms": []
+              }
+            }
+          ]
+        }
+      ],
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "GetNextDeparture",
+          "samples": [
+            "Wann fährt der nächste Bus",
+            "Wann der nächste Bus fährt",
+            "Wann kommt der nächste Bus",
+            "Wann der nächste Bus kommt",
+            "Nach dem nächsten Bus",
+            "Nach dem Bus",
+            "Wann der nächste fährt",
+            "Wann fährt der nächste",
+            "Wann kommt der nächste",
+            "Wann der nächste kommt",
+            "Nach dem nächsten"
+          ],
+          "slots": []
+        },
+        {
+          "name": "SetDirection",
+          "samples": [
+            "Gibt mir nur Busse in Richtung {direction}",
+            "nach Bussen Richtung {direction}",
+            "Ändere die Richtung auf {direction}"
+          ],
+          "slots": [
+            {
+              "name": "direction",
+              "type": "directionName",
+              "samples": [
+                "Ich möchte {direction} fahren.",
+                "{direction}",
+                "Ich will {direction} fahren."
+              ]
+            }
+          ]
+        }
+      ],
+      "invocationName": "haltestelle"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Intent-SetDirection.IntentSlot-direction",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "In welche Richtung möchtest du fahren. Stadtwärts oder landwärts?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Möchtest du stadtwärts oder landwärts fahren?"
+          }
+        ]
+      }
+    ],
+    "dialog": {
+      "intents": [
+        {
+          "name": "SetDirection",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "direction",
+              "type": "directionName",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Intent-SetDirection.IntentSlot-direction"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
