@@ -40,10 +40,10 @@ CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
 	} else {
 		var time = new Date(stops[0].plannedDeparture);
 	}
-	var line = stops[0].line;
-	var result = _.template('${time} Uhr fährt der nächste Bus der Linie ${line}')({
+	var result = _.template('${time} Uhr fährt der nächste Bus der Linie ${line} in Richtung ${destination}')({
 		time: formatTime(time),
-		line: line
+		line: stops[0].line,
+		destination: stops[0].destination
 	});
 	return result;
 }
