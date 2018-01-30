@@ -54,10 +54,9 @@ sts.assumeRole({
         console.log(err, err.stack);
     } else { // successful response
         AWS.config.update({
-            accessKeyId: data.Credentials.AccessKeyId,
-            secretAccessKey: data.Credentials.SecretAccessKey,
-            sessionToken: data.Credentials.sessionToken
-        });
+            accessKeyId: "AKIAII5UCAMQFB627X3Q",//data.Credentials.AccessKeyId,
+            secretAccessKey: "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",//data.Credentials.SecretAccessKey,
+            sessionToken: data.Credentials.sessionToken });        
         var Module = require('module');
         var originalRequire = Module.prototype.require;
         Module.prototype.require = function(){
@@ -69,7 +68,7 @@ sts.assumeRole({
         };        
         var lambda = require('../src/index.js');
         var event = require('./inputGetNextDeparture.json');
-        //var event = require('./inputSetDirection.json');
+        // var event = require('./inputSetDirection.json');
         lambda.handler(event, context());
     }
 });
