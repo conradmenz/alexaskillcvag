@@ -16,6 +16,10 @@ const handlers = {
             self.emit(':tell', cvag.formatFirstDeparture(stops));
         });
     },
+    // 'SetDirection': function () {
+    //     var direction = this.event.request.intent.slots.direction.value;
+    //     this.emit(':tell', 'Richtung auf ' + direction + ' gesetzt');
+    // },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     }
@@ -24,6 +28,7 @@ const handlers = {
 exports.handler = function (event, context) {
     const alexa = Alexa.handler(event, context);
     alexa.appId = APP_ID;
+    alexa.dynamoDBTableName = 'alexaSkillWeststrasseChemnitz'
     alexa.registerHandlers(handlers);
     alexa.execute();
 };
