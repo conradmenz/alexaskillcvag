@@ -12,14 +12,35 @@ const handlers = {
         var cvag = new CVAGDataHelper();
         var self = this;
         var station_id = 'CAG-208';
+        var directionID = this.attributes['directionID'];
+
+        if(directionID == '1') {
+            var destinationNames = ['Heimgarten', 'Gablenz', 'Zentralhaltestelle'];
+        } else {
+            var destinationNames = ['Flemmingstr.', 'Rottluff', 'Talanger'];
+        };
+
         cvag.requestNextDepartures(station_id).then(function (stops) {
-            self.emit(':tell', cvag.formatFirstDeparture(stops));
+            var message = '';
+            for (let index = 0; index < stops.length; index++) {
+                const stop = stops[index];
+                if(destinationNames.indexOf(stop.destination) >= 0) {
+                    message = cvag.formatDeparture(stop);
+                    break;
+                };
+            };
+            if(message == '') { // no match found
+                message = cvag.formatFirstDeparture(stops);
+            };
+            self.emit(':tell', message);
         });
     },
-    // 'SetDirection': function () {
-    //     var direction = this.event.request.intent.slots.direction.value;
-    //     this.emit(':tell', 'Richtung auf ' + direction + ' gesetzt');
-    // },
+    'SetDirection': function () {
+        var directionName = this.event.request.intent.slots.direction.resolutions.resolutionsPerAuthority[0].values[0].value.name;
+        var directionID = this.event.request.intent.slots.direction.resolutions.resolutionsPerAuthority[0].values[0].value.id;
+        this.attributes['directionID'] = directionID;
+        this.emit(':tell', 'Richtung auf ' + directionName + ' gesetzt');
+    },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     }

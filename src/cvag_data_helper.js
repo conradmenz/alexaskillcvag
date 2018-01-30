@@ -31,21 +31,35 @@ CVAGDataHelper.prototype.getNextDepartures = function(stationID) {
 };
 
 CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
-	var formatTime = function(time) {
-		return time.getHours() + 1 + ':' + _.padStart(time.getMinutes(), 2, '0');
-	}
+	return this.formatDeparture(stops[0]);
+};
 
-	if (stops[0].hasActualDeparture) {
-		var time = new Date(stops[0].actualDeparture);
+CVAGDataHelper.prototype.formatDeparture = function(stop) {
+	var formatTime = function(time) {
+		var minutes = new Date(time - _.now()).getMinutes();
+		if(minutes > 15) {
+			return time.getHours() + 1 + ':' + _.padStart(time.getMinutes(), 2, '0') + ' Uhr';
+		} else {
+			if(minutes > 1) {
+				return 'In ' + minutes + ' Minuten';
+			} else {
+				return 'Jetzt';
+			}
+		}
+	};
+
+	if (stop.hasActualDeparture) {
+		var time = new Date(stop.actualDeparture);
 	} else {
-		var time = new Date(stops[0].plannedDeparture);
-	}
-	var result = _.template('${time} Uhr fährt der nächste Bus der Linie ${line} in Richtung ${destination}')({
+		var time = new Date(stop.plannedDeparture);
+	};
+
+	var result = _.template('${time} fährt der nächste Bus der Linie ${line} in Richtung ${destination}')({
 		time: formatTime(time),
-		line: stops[0].line,
-		destination: stops[0].destination
+		line: stop.line,
+		destination: stop.destination
 	});
 	return result;
-}
+};
 
 module.exports = CVAGDataHelper;
