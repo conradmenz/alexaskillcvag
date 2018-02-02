@@ -3,8 +3,13 @@ var _ = require('lodash');
 var rp = require('request-promise');
 var UrlCvag = 'http://www.cvag.de'; //'http://www.cvag.de/eza/mis/stops/station/CAG-208'
 var MethodStation = '/eza/mis/stops/station/';
+var moment = require('moment-timezone');
 
 function CVAGDataHelper() {}
+
+CVAGDataHelper.prototype.getCurrentTime = function() {
+	return _.now();
+};
 
 CVAGDataHelper.prototype.requestNextDepartures = function(stationID) {
 	return this.getNextDepartures(stationID).then(
@@ -35,17 +40,25 @@ CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
 };
 
 CVAGDataHelper.prototype.formatDeparture = function(stop) {
+	var now = this.getCurrentTime();
+	
 	var formatTime = function(time) {
-		var minutes = new Date(time - _.now()).getMinutes();
-		if(minutes > 15) {
-			return time.getHours() + 1 + ':' + _.padStart(time.getMinutes(), 2, '0') + ' Uhr';
+		if(time < now) {
+			return 'Jetzt';
 		} else {
-			if(minutes > 1) {
-				return 'In ' + minutes + ' Minuten';
+			var momentDeparture = moment(time);
+			var momentNow = moment(now);
+			var minutesDifference = momentDeparture.diff(momentNow, 'minutes');
+			if(minutesDifference > 15) {
+				return momentDeparture.format('H:mm') + ' Uhr';
 			} else {
-				return 'Jetzt';
-			}
-		}
+				if(minutesDifference > 1) {
+					return 'In ' + minutesDifference + ' Minuten';
+				} else {
+					return 'Jetzt';
+				};
+			};
+		};
 	};
 
 	if (stop.hasActualDeparture) {
