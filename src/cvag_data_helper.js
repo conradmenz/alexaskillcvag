@@ -52,7 +52,7 @@ CVAGDataHelper.prototype.formatDeparture = function(stop) {
 			if(minutesDifference > 15) {
 				return momentDeparture.format('H:mm') + ' Uhr';
 			} else {
-				if(minutesDifference > 1) {
+				if(minutesDifference >= 1) {
 					return 'In ' + minutesDifference + ' Minuten';
 				} else {
 					return 'Jetzt';
