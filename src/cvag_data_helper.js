@@ -40,39 +40,42 @@ CVAGDataHelper.prototype.formatFirstDeparture = function(stops) {
 };
 
 CVAGDataHelper.prototype.formatDeparture = function(stop) {
-	var now = this.getCurrentTime();
-	
-	var formatTime = function(time) {
-		if(time < now) {
-			return 'Jetzt';
-		} else {
-			var momentDeparture = moment(time);
-			var momentNow = moment(now);
-			var minutesDifference = momentDeparture.diff(momentNow, 'minutes');
-			if(minutesDifference > 15) {
-				return momentDeparture.format('H:mm') + ' Uhr';
-			} else {
-				if(minutesDifference >= 1) {
-					return 'In ' + minutesDifference + ' Minuten';
-				} else {
-					return 'Jetzt';
-				};
-			};
-		};
-	};
-
-	if (stop.hasActualDeparture) {
-		var time = new Date(stop.actualDeparture);
-	} else {
-		var time = new Date(stop.plannedDeparture);
-	};
-
-	var result = _.template('${time} fährt der nächste Bus der Linie ${line} in Richtung ${destination}')({
-		time: formatTime(time),
+	return _.template('${time} fährt der nächste Bus der Linie ${line} in Richtung ${destination}')({
+		time: this.formatTime(this.getTimeFromStop(stop)),
 		line: stop.line,
 		destination: stop.destination
 	});
-	return result;
+};
+
+CVAGDataHelper.prototype.getTimeFromStop = function(stop) {
+	if (stop.hasActualDeparture) {
+		return new Date(stop.actualDeparture);
+	} else {
+		return new Date(stop.plannedDeparture);
+	};
+};
+
+CVAGDataHelper.prototype.formatTime = function(time) {
+	const thresholdMinutes = 15;
+	const thresholdNow = 1;
+	var now = this.getCurrentTime();
+
+	if(time < now) {
+		return 'Jetzt';
+	} else {
+		var momentDeparture = moment(time);
+		var momentNow = moment(now);
+		var minutesDifference = momentDeparture.diff(momentNow, 'minutes');
+		if(minutesDifference > thresholdMinutes) {
+			return momentDeparture.format('H:mm') + ' Uhr';
+		} else {
+			if(minutesDifference >= thresholdNow) {
+				return 'In ' + minutesDifference + ' Minuten';
+			} else {
+				return 'Jetzt';
+			};
+		};
+	};
 };
 
 module.exports = CVAGDataHelper;
