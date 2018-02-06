@@ -9,6 +9,12 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/test/main.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch CVAG debug",
+            "program": "${workspaceFolder}/src/cvag_debug.js"
         }
     ]
 }
