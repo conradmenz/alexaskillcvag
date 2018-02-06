@@ -31,14 +31,11 @@ describe('CVAGDataHelper', function() {
 		});
 	});
 	describe('#formatDeparture', function() {
-		var nowPlus5Minutes = moment(currentTestTime).add(5, 'minutes').add(5, 'seconds');
-		var nowMinus10Seconds = moment(currentTestTime).subtract(30, 'seconds');
-
 		var stop = {
 			"destination": "Heimgarten",
 			"serviceType": "BUS",
 			"hasActualDeparture": true,
-			"actualDeparture": nowPlus5Minutes,
+			"actualDeparture": moment(currentTestTime).add(5, 'minutes').add(5, 'seconds'),
 			"line": "72",
 			"platform": null
 		};
@@ -47,10 +44,56 @@ describe('CVAGDataHelper', function() {
 				expect(subject.formatDeparture(stop)).to.eq('In 5 Minuten fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
+		context('with an actual departure in 61 seconds', function() {
+			it('tells how many minutes left', function() {
+				stop.actualDeparture = moment(currentTestTime).add(100, 'seconds');
+				expect(subject.formatDeparture(stop)).to.eq('In 1 Minuten fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with an actual departure in 59 seconds', function() {
+			it('tells that the departure is now', function() {
+				stop.actualDeparture = moment(currentTestTime).add(59, 'seconds');
+				expect(subject.formatDeparture(stop)).to.eq('Jetzt fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with an actual departure now', function() {
+			it('tells that the departure is now ', function() {
+				stop.actualDeparture = currentTestTime;
+				expect(subject.formatDeparture(stop)).to.eq('Jetzt fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
 		context('with an actual departure 30 seconds ago', function() {
 			it('tells that the departure is now ', function() {
-				stop.actualDeparture = nowMinus10Seconds;
+				stop.actualDeparture = moment(currentTestTime).subtract(30, 'seconds');
 				expect(subject.formatDeparture(stop)).to.eq('Jetzt fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with an actual departure 5 minutes ago', function() {
+			it('tells that the departure is now ', function() {
+				stop.actualDeparture = moment(currentTestTime).subtract(5, 'minutes');
+				expect(subject.formatDeparture(stop)).to.eq('Jetzt fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with an actual single digit departure', function() {
+			it('formats the first departure as expected', function() {
+				var nextHour05 = moment(currentTestTime).add(1, 'hours').add(5, 'minutes').toDate();
+				stop.actualDeparture = nextHour05;
+				expect(subject.formatDeparture(stop)).to.eq('10:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with an actual departure on the next day', function() {
+			it('formats the first departure as expected', function() {
+				var tomorrow0905 = moment(currentTestTime).add(1, 'days').add(5, 'minutes').toDate();
+				stop.actualDeparture = tomorrow0905;
+				expect(subject.formatDeparture(stop)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
+			});
+		});
+		context('with a planned departure', function() {
+			it('formats the first departure as expected', function() {
+				stop.hasActualDeparture = false;
+				stop.plannedDeparture = stop.actualDeparture;
+				stop.actualDeparture = null;
+				expect(subject.formatDeparture(stop)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
 	});
@@ -74,28 +117,6 @@ describe('CVAGDataHelper', function() {
 		context('with an array containing an actual departure', function() {
 			it('formats the first departure as expected', function() {
 				expect(subject.formatFirstDeparture(stops)).to.eq('11:31 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
-			});
-		});
-		context('with an array containing an actual single digit departure', function() {
-			it('formats the first departure as expected', function() {
-				var nextHour05 = moment(currentTestTime).add(1, 'hours').add(5, 'minutes').toDate();
-				stops[0].actualDeparture = nextHour05;
-				expect(subject.formatFirstDeparture(stops)).to.eq('10:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
-			});
-		});
-		context('with an array containing an actual departure on the next day', function() {
-			it('formats the first departure as expected', function() {
-				var tomorrow0905 = moment(currentTestTime).add(1, 'days').add(5, 'minutes').toDate();
-				stops[0].actualDeparture = tomorrow0905;
-				expect(subject.formatFirstDeparture(stops)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
-			});
-		});
-		context('with an array containing a planned departure', function() {
-			it('formats the first departure as expected', function() {
-				stops[0].hasActualDeparture = false;
-				stops[0].plannedDeparture = stops[0].actualDeparture;
-				stops[0].actualDeparture = null;
-				expect(subject.formatFirstDeparture(stops)).to.eq('9:05 Uhr fährt der nächste Bus der Linie 72 in Richtung Heimgarten');
 			});
 		});
 	});
