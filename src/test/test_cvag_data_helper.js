@@ -120,4 +120,16 @@ describe('CVAGDataHelper', function() {
 			});
 		});
 	});
+	describe('#getDestinationNamesByDirectionID', function() {
+		context('with direction 0', function() {
+			it('returns Flemming, Rottluf, Talanger', function() {
+				expect(subject.getDestinationNamesByDirectionID(0)).to.deep.equal(['Flemmingstr.', 'Rottluff', 'Talanger']);
+			});
+		});
+		context('with direction 1', function() {
+			it('returns Heimgarten, Gablenz, Zentralhaltestelle', function() {
+				expect(subject.getDestinationNamesByDirectionID(1)).to.deep.equal(['Heimgarten', 'Gablenz', 'Zentralhaltestelle']);
+			});
+		});
+	});
 });
