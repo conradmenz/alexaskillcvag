@@ -1,7 +1,7 @@
 'use strict';
 
 const Alexa = require('alexa-sdk');
-const SkillHandler = require('./SkillHandler');
+const SkillHandler = require('./skillHandler');
 const APP_ID = undefined;//'amzn1.ask.skill.4fffdda6-ed4c-46be-b6a5-112ff7d10b8d';
 
 const handlers = {
