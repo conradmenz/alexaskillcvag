@@ -67,7 +67,7 @@ CVAGDataHelper.prototype.formatTime = function(time) {
 		var momentNow = moment(now);
 		var minutesDifference = momentDeparture.diff(momentNow, 'minutes');
 		if(minutesDifference > thresholdMinutes) {
-			return momentDeparture.format('H:mm') + ' Uhr';
+			return momentDeparture.tz('Europe/Berlin').format('H:mm') + ' Uhr';
 		} else {
 			if(minutesDifference >= thresholdNow) {
 				return 'In ' + minutesDifference + ' Minuten';
