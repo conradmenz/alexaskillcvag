@@ -30,4 +30,16 @@ SkillHandler.prototype.SetDirection = function() {
 	
 };
 
+SkillHandler.prototype.ToggleDirection = function() {
+    var directionID;
+	if (this.GetAttribute(DIRECTION_ID_ATTRIBUTE) == 1) {
+        directionID = 0;
+    } else {
+        directionID = 1;
+    };
+    this.SetAttribute(DIRECTION_ID_ATTRIBUTE, directionID);
+    var cvag = new CVAGDataHelper();
+    return 'Richtung auf ' + cvag.getDirectionNameByDirectionID(directionID) + ' geändert';
+};
+
 module.exports = SkillHandler;

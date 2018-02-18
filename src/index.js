@@ -23,6 +23,11 @@ const handlers = {
         this.attributes['directionID'] = directionID;
         this.emit(':tell', 'Richtung auf ' + directionName + ' gesetzt');
     },
+    'ToggleDirection': function () {
+        var skill = new SkillHandler(this);
+        var message = skill.ToggleDirection();
+        this.emit(':tell', message);
+    },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     }

@@ -95,6 +95,14 @@ CVAGDataHelper.prototype.getDestinationNamesByDirectionID = function(directionID
 	} else {
 		return ['Flemmingstr.', 'Rottluff', 'Talanger'];
 	};
-}
+};
+
+CVAGDataHelper.prototype.getDirectionNameByDirectionID = function(directionID) {
+	if(directionID == '1') {
+		return 'Stadtwärts';
+	} else {
+		return 'Landwärts';
+	};
+};
 
 module.exports = CVAGDataHelper;

@@ -65,10 +65,11 @@ sts.assumeRole({
           } else {
             return originalRequire.apply(this, arguments);
           }
-        };        
+        };
         var lambda = require('../src/index.js');
-        var event = require('./inputGetNextDeparture.json');
+        // var event = require('./inputGetNextDeparture.json');
         // var event = require('./inputSetDirection.json');
+        var event = require('./inputToggleDirection.json');
         lambda.handler(event, context());
     }
 });
