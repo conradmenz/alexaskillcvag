@@ -10,10 +10,7 @@ const handlers = {
     },
     'GetNextDeparture': function () {
         var self = this;
-        var skill = new SkillHandler();
-        skill.GetAttribute = function(key) {
-            return self.attributes[key];
-        };
+        var skill = new SkillHandler(this);
         skill.GetNextDeparture().then(
             function(message) {
                 self.emit(':tell', message);
