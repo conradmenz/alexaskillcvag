@@ -70,6 +70,7 @@ sts.assumeRole({
         // var event = require('./inputGetNextDeparture.json');
         // var event = require('./inputSetDirection.json');
         var event = require('./inputToggleDirection.json');
+        // var event = require('./inputSetDirectionSlotNotConfirmed.json');
         lambda.handler(event, context());
     }
 });

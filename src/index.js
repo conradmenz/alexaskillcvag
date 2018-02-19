@@ -17,11 +17,20 @@ const handlers = {
             });
     },
     'SetDirection': function () {
-        var resolutions = this.event.request.intent.slots.direction.resolutions;
-        var directionName = resolutions.resolutionsPerAuthority[0].values[0].value.name;
-        var directionID = resolutions.resolutionsPerAuthority[0].values[0].value.id;
-        this.attributes['directionID'] = directionID;
-        this.emit(':tell', 'Richtung auf ' + directionName + ' gesetzt');
+        try {
+            var direction = this.event.request.intent.slots.direction;
+            if(direction.confirmationStatus == 'NONE') {
+                this.emit(':tell', 'Die Richtung kann zum Beispiel auf Stadtwärts oder Landwärts gesetzt werden.');
+            } else {
+                var resolutions = direction.resolutions;
+                var directionName = resolutions.resolutionsPerAuthority[0].values[0].value.name;
+                var directionID = resolutions.resolutionsPerAuthority[0].values[0].value.id;
+                this.attributes['directionID'] = directionID;
+                this.emit(':tell', 'Richtung auf ' + directionName + ' gesetzt');
+            };
+        } catch (error) {
+            this.emit(':tell', 'Beim Ändern der Richtung ist ein Fehler aufgetreten. Eventuell habe ich dich nicht richtig verstanden.');
+        }
     },
     'ToggleDirection': function () {
         var skill = new SkillHandler(this);
@@ -30,6 +39,9 @@ const handlers = {
     },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
+    },
+    'Unhandled': function () {
+        this.emit(':tell', 'Ich habe dich leider nicht richtig verstanden. Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     }
 };
 
