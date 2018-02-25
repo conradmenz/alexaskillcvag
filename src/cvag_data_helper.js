@@ -1,8 +1,9 @@
 'use strict'
 var _ = require('lodash');
 var rp = require('request-promise');
-var UrlCvag = 'http://www.cvag.de'; //'http://www.cvag.de/eza/mis/stops/station/CAG-208'
-var MethodStation = '/eza/mis/stops/station/';
+const UrlCvag = 'http://www.cvag.de'; //'http://www.cvag.de/eza/mis/stops/station/CAG-208'
+const MethodStation = '/eza/mis/stops/station/';
+const MethodDepartureConfig = '/eza/mis/departureconfig/';
 var moment = require('moment-timezone');
 
 function CVAGDataHelper() {}
@@ -21,10 +22,27 @@ CVAGDataHelper.prototype.requestNextDepartures = function(stationID) {
 };
 
 CVAGDataHelper.prototype.getNextDepartures = function(stationID) {
+	return this.invokeCvagGetRequest(MethodStation + stationID);
+};
+
+CVAGDataHelper.prototype.requestDepartureConfiguration = function(stationID) {
+	return this.getDepartureConfiguration(stationID).then(
+		function(response) {
+			console.log('success - received information for station ' + stationID + ' (' + response.station.displayName + ')');
+			return response.station;
+		}
+	);
+};
+
+CVAGDataHelper.prototype.getDepartureConfiguration = function(stationID) {
+	return this.invokeCvagGetRequest(MethodDepartureConfig + stationID);
+};
+
+CVAGDataHelper.prototype.invokeCvagGetRequest = function(command) {
 
 	var options = {
 		method: 'GET',
-		uri: UrlCvag + MethodStation + stationID,
+		uri: UrlCvag + command,
 		json: true,
 		headers: {
 			'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',

@@ -30,6 +30,23 @@ describe('CVAGDataHelper', function() {
 			});
 		});
 	});
+	describe('#getDepartureConfiguration', function() {
+		context('with a valid station id', function() {
+			it('returns information for station', function() {
+				station_id = 'CAG-208';
+				var value = subject.requestDepartureConfiguration(station_id).then(function (value) {
+					return value;
+				});
+				return expect(value).to.eventually.ownProperty('displayName');
+	        });
+		});
+		context('with an invalid station id', function() {
+			it('returns no information for station', function() {
+				station_id = '4711';
+				return expect(subject.requestDepartureConfiguration(station_id)).to.be.rejectedWith(Error);
+			});
+		});
+	});
 	describe('#formatDeparture', function() {
 		var stop = {
 			"destination": "Heimgarten",
