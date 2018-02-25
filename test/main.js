@@ -69,8 +69,10 @@ sts.assumeRole({
         var lambda = require('../src/index.js');
         // var event = require('./inputGetNextDeparture.json');
         // var event = require('./inputSetDirection.json');
-        var event = require('./inputToggleDirection.json');
+        // var event = require('./inputToggleDirection.json');
         // var event = require('./inputSetDirectionSlotNotConfirmed.json');
+        // var event = require('./inputSetStation.json');
+        var event = require('./inputSetStationInvalid2.json');
         lambda.handler(event, context());
     }
 });

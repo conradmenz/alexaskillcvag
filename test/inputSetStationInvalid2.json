@@ -1,0 +1,67 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": true,
+		"sessionId": "amzn1.echo-api.session.b2c7f1c4-9134-42af-a072-772d2a46435e",
+		"application": {
+			"applicationId": "amzn1.ask.skill.4fffdda6-ed4c-46be-b6a5-112ff7d10b8d"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AGWQH2GP4674XF275T3KUHD7HMYZDXNZGYCNOWWNCGJ6RUJMW3CWMFYXOFXCISKBJFH5CCWU4CDM4HO4AIQT6YQO54YWQSBAFBAEMJODVFP6LHMZ5AON2ONHZIYWCBKJHTPQSKCCDR3BY4BZ23WHX3UTWDUCSRGTXZYY7SEMD4XPT2PESMBDTB6YPZEY47AWXZIDJSKLCWSRCCQ"
+		}
+	},
+	"context": {
+		"AudioPlayer": {
+			"playerActivity": "IDLE"
+		},
+		"Display": {},
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.4fffdda6-ed4c-46be-b6a5-112ff7d10b8d"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AGWQH2GP4674XF275T3KUHD7HMYZDXNZGYCNOWWNCGJ6RUJMW3CWMFYXOFXCISKBJFH5CCWU4CDM4HO4AIQT6YQO54YWQSBAFBAEMJODVFP6LHMZ5AON2ONHZIYWCBKJHTPQSKCCDR3BY4BZ23WHX3UTWDUCSRGTXZYY7SEMD4XPT2PESMBDTB6YPZEY47AWXZIDJSKLCWSRCCQ"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AEI5WNDXPC2B73VY6WO7X37MPI4SUWLPYDW6W6KRWAGFQHD4F2VIN65WJFAJIH6KHA7LDWLFAYBLOMDHFJEQ5KDHXXEZ2TX7FZCKFOTB6WNQNRIJQKAHWMWTSY4MWLYAKQJFLJVUA7E47QT73J2XQFXDLQ77IBPJSEMIUDM3IEFPAZE3SVPVU",
+				"supportedInterfaces": {
+					"AudioPlayer": {},
+					"Display": {
+						"templateVersion": "1.0",
+						"markupVersion": "1.0"
+					}
+				}
+			},
+			"apiEndpoint": "https://api.eu.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjRmZmZkZGE2LWVkNGMtNDZiZS1iNmE1LTExMmZmN2QxMGI4ZCIsImV4cCI6MTUxOTU3MjE4OCwiaWF0IjoxNTE5NTY4NTg4LCJuYmYiOjE1MTk1Njg1ODgsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUVJNVdORFhQQzJCNzNWWTZXTzdYMzdNUEk0U1VXTFBZRFc2VzZLUldBR0ZRSEQ0RjJWSU42NVdKRkFKSUg2S0hBN0xEV0xGQVlCTE9NREhGSkVRNUtESFhYRVoyVFg3RlpDS0ZPVEI2V05RTlJJSlFLQUhXTVdUU1k0TVdMWUFLUUpGTEpWVUE3RTQ3UVQ3M0oyWFFGWERMUTc3SUJQSlNFTUlVRE0zSUVGUEFaRTNTVlBWVSIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFHV1FIMkdQNDY3NFhGMjc1VDNLVUhEN0hNWVpEWE5aR1lDTk9XV05DR0o2UlVKTVczQ1dNRllYT0ZYQ0lTS0JKRkg1Q0NXVTRDRE00SE80QUlRVDZZUU81NFlXUVNCQUZCQUVNSk9EVkZQNkxITVo1QU9OMk9OSFpJWVdDQktKSFRQUVNLQ0NEUjNCWTRCWjIzV0hYM1VUV0RVQ1NSR1RYWllZN1NFTUQ0WFBUMlBFU01CRFRCNllQWkVZNDdBV1haSURKU0tMQ1dTUkNDUSJ9fQ.bo7ZUvvN1f9x437yGLetpENU3AzHdKtEL-m7U-nS96orx9Y1tytJdNhUC7vHm3jUr7ek91k_dq3rY4mN8s3mFcwvwkcSSbpmFb-Yz1IBiHpc8b7msg_cmE3f8w8TJMHCmojIUNVgLdyqIUB-18yCodRpOixwE2OUxYb5v89fgwKs36yUIbsEQr16FzI9yW3kzC9r78JvC7MIQjSexTYjmNfKC2xf4b33_DqZw7ODWdZksUbLIMqbjpMvoMX1N6EGLv4r5Oy81RL8oPPEE7TFXT66CThi6XUY5lVz8FJNHqPSo9F3MYWKq56PA6WYMHNLBRNwUQsjnQu6c2M7kf8bfA"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.58f7afec-8c9b-4b98-9f6a-a856abc5d43f",
+		"timestamp": "2018-02-25T14:23:08Z",
+		"locale": "de-DE",
+		"intent": {
+			"name": "SetStation",
+			"confirmationStatus": "NONE",
+			"slots": {
+				"station": {
+					"name": "station",
+					"value": "Neukirchen Südstraße",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.4fffdda6-ed4c-46be-b6a5-112ff7d10b8d.stationName",
+								"status": {
+									"code": "ER_SUCCESS_NO_MATCH"
+								}
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				}
+			}
+		},
+		"dialogState": "STARTED"
+	}
+}
