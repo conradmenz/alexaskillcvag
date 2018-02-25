@@ -1,5 +1,6 @@
 'use strict'
 const CVAGDataHelper = require('./cvag_data_helper');
+const STATION_ID_ATTRIBUTE = 'stationID';
 const DIRECTION_ID_ATTRIBUTE = 'directionID';
 var Alexa;
 
@@ -17,11 +18,13 @@ SkillHandler.prototype.SetAttribute = function(key, value) {
 
 SkillHandler.prototype.GetNextDeparture = function() {
     var cvag = new CVAGDataHelper();
-    var stationID = 'CAG-208';
+    var stationID = this.GetAttribute(STATION_ID_ATTRIBUTE);
     var directionID = this.GetAttribute(DIRECTION_ID_ATTRIBUTE);
 	return cvag.requestNextDepartures(stationID).then(
 		function(stops) {
-			return cvag.formatDeparture(cvag.findFirstDepartureByDirection(stops, directionID));
+            if(stops.length > 0) {
+                return cvag.formatDeparture(cvag.findFirstDepartureByDirection(stops, directionID));
+            }
 		}
 	);
 };
