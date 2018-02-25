@@ -7,9 +7,7 @@ for (let index = 0; index < 10; index++) {
 		function(configuration) {
 			var station = configuration.station;
 			if(station != null) {
-				console.log('Mandator: ' + station.mandator + ' Number: ' + station.number + ' Name: ' + station.displayName);
-			// } else {
-			// 	console.log('Not used');
+				console.log('{"id": "' + station.mandator + '-' + station.number + '","name": { "value": "' + station.displayName + '","synonyms": []}},');
 			}
 		}
 	);
