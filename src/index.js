@@ -37,6 +37,22 @@ const handlers = {
         var message = skill.ToggleDirection();
         this.emit(':tell', message);
     },
+    'SetStation': function () {
+        try {
+            var station = this.event.request.intent.slots.station;
+            if(station.confirmationStatus == 'NONE') {
+                this.emit(':tell', 'Die Haltestelle kann zum Beispiel auf Zentralhaltestelle oder Hauptbahnhof gesetzt werden.');
+            } else {
+                var resolutions = station.resolutions;
+                var stationName = resolutions.resolutionsPerAuthority[0].values[0].value.name;
+                var stationID = resolutions.resolutionsPerAuthority[0].values[0].value.id;
+                this.attributes['stationID'] = stationID;
+                this.emit(':tell', 'Haltestelle auf ' + stationName + ' gesetzt');
+            };
+        } catch (error) {
+            this.emit(':tell', 'Beim Einstellen der Haltestelle ist ein Fehler aufgetreten. Eventuell habe ich dich nicht richtig verstanden.');
+        }
+    },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     },
