@@ -13,6 +13,12 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch station lister",
+            "program": "${workspaceFolder}/src/cvag_station_lister.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch CVAG debug",
             "program": "${workspaceFolder}/src/cvag_debug.js"
         }
