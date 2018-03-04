@@ -20,10 +20,18 @@ SkillHandler.prototype.GetNextDeparture = function() {
     var cvag = new CVAGDataHelper();
     var stationID = this.GetAttribute(STATION_ID_ATTRIBUTE);
     var directionID = this.GetAttribute(DIRECTION_ID_ATTRIBUTE);
+    if(stationID == null) {
+        throw new Error('stationID is null')
+    };
+    if(directionID == null) {
+        directionID = 0;
+    };
 	return cvag.requestNextDepartures(stationID).then(
 		function(stops) {
             if(stops.length > 0) {
                 return cvag.formatDeparture(cvag.findFirstDepartureByDirection(stops, directionID));
+            } else {
+                return 'Keine Abfahrt innerhalb der nächsten Stunde.';
             }
 		}
 	);
