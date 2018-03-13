@@ -67,12 +67,15 @@ sts.assumeRole({
           }
         };
         var lambda = require('../src/index.js');
+        var event = require('./inputLaunchRequest.json');
         // var event = require('./inputGetNextDeparture.json');
+        // var event = require('./inputGetNextDepartureWithSlot.json');
+        // var event = require('./inputGetNextDepartureWithSlotStationAnswer.json');
         // var event = require('./inputSetDirection.json');
         // var event = require('./inputToggleDirection.json');
         // var event = require('./inputSetDirectionSlotNotConfirmed.json');
         // var event = require('./inputSetStation.json');
-        var event = require('./inputSetStationInvalid2.json');
+        // var event = require('./inputSetStationInvalid2.json');
         lambda.handler(event, context());
     }
 });
