@@ -65,7 +65,6 @@ const handlers = {
         this.emit(':tell', 'Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
     },
     'Unhandled': function () {
-        this.emit(':tell', 'Ich habe dich leider nicht richtig verstanden. Du kannst sagen: Alexa, frage die Haltestelle wann der nächste Bus kommt.');
         this.emit(':tell', 'Ich habe dich leider nicht richtig verstanden. Du kannst sagen: Alexa, frage Haltestelle wann der nächste Bus kommt.');
     }
 };
