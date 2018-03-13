@@ -9,12 +9,21 @@ const handlers = {
         this.emit('GetNextDeparture');
     },
     'GetNextDeparture': function () {
-        var self = this;
-        var skill = new SkillHandler(this);
-        skill.GetNextDeparture().then(
-            function(message) {
-                self.emit(':tell', message);
-            });
+        try {
+            var skill = new SkillHandler(this);
+            var result = skill.SetStation();
+            if (result.stationSet) {
+                var self = this;
+                skill.GetNextDeparture().then(
+                    function(message) {
+                        self.emit(':tell', result.returnMessage + message);
+                    }
+                );
+            };
+        } catch (error) {
+            console.log('Exception occurred. Message: ' + error.message);
+            this.emit(':tell', 'Das Abrufen des Fahrplans hat leider nicht geklappt.');
+        };
     },
     'SetDirection': function () {
         try {
@@ -39,23 +48,8 @@ const handlers = {
     },
     'SetStation': function () {
         try {
-            var station = this.event.request.intent.slots.station;
-            if(station.value == null) {
-            // if(station.confirmationStatus == 'NONE') {
-                console.log('SetStation: station.value == null.');
-                this.emit(':tell', 'Die Haltestelle kann zum Beispiel auf Zentralhaltestelle oder Hauptbahnhof gesetzt werden.');
-            } else {
-                var resolution = station.resolutions.resolutionsPerAuthority[0];
-                if (resolution.status.code == 'ER_SUCCESS_NO_MATCH') {
-                    this.emit(':tell', 'Ich konnte leider keine passende Haltestelle finden.');
-                } else {
-                    var stationName = resolution.values[0].value.name;
-                    var stationID = resolution.values[0].value.id;
-                    this.attributes['stationID'] = stationID;
-                    console.log('SetStation: station set to ' + stationID + '(' + stationName + ')');
-                    this.emit(':tell', 'Haltestelle auf ' + stationName + ' gesetzt');
-                }
-            };
+            var skill = new SkillHandler(this);
+            var result = skill.SetStation();
         } catch (error) {
             console.log('SetStation: Exception occurred. ' + error.message);
             this.emit(':tell', 'Beim Einstellen der Haltestelle ist ein Fehler aufgetreten. Eventuell habe ich dich nicht richtig verstanden.');

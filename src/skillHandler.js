@@ -53,4 +53,56 @@ SkillHandler.prototype.ToggleDirection = function() {
     return 'Richtung auf ' + cvag.getDirectionNameByDirectionID(directionID) + ' geändert';
 };
 
+SkillHandler.prototype.SetStation = function() {
+    var intentObj = this.Alexa.event.request.intent;
+    var stationSlotDefined;
+    if (typeof intentObj === 'undefined' ||
+        typeof intentObj.slots === 'undefined' ||
+        typeof intentObj.slots.station === 'undefined' ||
+        typeof intentObj.slots.station.value === 'undefined') {
+        stationSlotDefined = false;
+    } else {
+        stationSlotDefined = true;
+    };
+
+    var stationAttributeDefined = !(typeof this.GetAttribute(STATION_ID_ATTRIBUTE) === 'undefined');
+    if (!(typeof intentObj === 'undefined') && intentObj.name == 'SetStation') {
+        stationAttributeDefined = false;
+    };
+
+    if (!stationSlotDefined && !stationAttributeDefined) {
+        console.log('SetStation:beforeDelegate');
+        this.Alexa.emit(':delegate');
+        console.log('SetStation:afterDelegate');
+    };
+
+    var messageBegin = '';
+    if (stationSlotDefined) {
+        var station = intentObj.slots.station;
+        var resolution = station.resolutions.resolutionsPerAuthority[0];
+        if (resolution.status.code == 'ER_SUCCESS_NO_MATCH') {
+            console.log('SetStation: resolution status code: ' + resolution.status.code);
+            this.Alexa.emit(':tell', 'Ich konnte leider keine passende Haltestelle finden.');
+            console.log('SetStation:afterTellNotFound');
+        } else {
+            if (resolution.status.code == 'ER_SUCCESS_MATCH') {
+                var stationName = resolution.values[0].value.name;
+                var stationID = resolution.values[0].value.id;
+                this.SetAttribute(STATION_ID_ATTRIBUTE, stationID);
+                var messageBegin = 'Haltestelle auf ' + stationName + ' gesetzt.';
+                stationAttributeDefined = true;
+                console.log('SetStation: station set to ' + stationID + '(' + stationName + ')');
+            } else {
+                console.log('SetStation: resolution status code: ' + resolution.status.code);
+                this.Alexa.emit(':tell', 'Das Setzen der Haltestelle hat nicht geklappt.');
+                console.log('SetStation:afterTellError');
+            };
+        };
+    };
+    return {
+        stationSet: stationAttributeDefined,
+        returnMessage: messageBegin + ' '
+    };
+};
+
 module.exports = SkillHandler;
