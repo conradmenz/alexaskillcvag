@@ -11,17 +11,20 @@ const handlers = {
     'GetNextDeparture': function () {
         try {
             var skill = new SkillHandler(this);
-            var result = skill.SetStation();
-            if (result.stationSet) {
+            if (skill.IsStationDefined())
+            {
                 var self = this;
                 skill.GetNextDeparture().then(
                     function(message) {
-                        self.emit(':tell', result.returnMessage + message);
+                        self.emit(':tell', message);
                     }
                 );
+            } else {
+                this.emit(':tell', 'Setze zuerst deine Haltestelle indem du sagst: Alexa, starte Haltestelle und setze meine Haltestelle auf Hauptbahnhof.');
             };
+
         } catch (error) {
-            console.log('Exception occurred. Message: ' + error.message);
+            console.log('Exception occurred in index.GetNextDeparture. Message: ' + error.message);
             this.emit(':tell', 'Das Abrufen des Fahrplans hat leider nicht geklappt.');
         };
     },
@@ -50,6 +53,7 @@ const handlers = {
         try {
             var skill = new SkillHandler(this);
             var result = skill.SetStation();
+            this.emit(':tell', result.returnMessage);
         } catch (error) {
             console.log('SetStation: Exception occurred. ' + error.message);
             this.emit(':tell', 'Beim Einstellen der Haltestelle ist ein Fehler aufgetreten. Eventuell habe ich dich nicht richtig verstanden.');

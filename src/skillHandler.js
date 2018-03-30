@@ -53,8 +53,13 @@ SkillHandler.prototype.ToggleDirection = function() {
     return 'Richtung auf ' + cvag.getDirectionNameByDirectionID(directionID) + ' geändert';
 };
 
+SkillHandler.prototype.IsStationDefined = function() {
+    return !(typeof this.GetAttribute(STATION_ID_ATTRIBUTE) === 'undefined');
+}
+
 SkillHandler.prototype.SetStation = function() {
     var intentObj = this.Alexa.event.request.intent;
+    
     var stationSlotDefined;
     if (typeof intentObj === 'undefined' ||
         typeof intentObj.slots === 'undefined' ||
@@ -65,11 +70,15 @@ SkillHandler.prototype.SetStation = function() {
         stationSlotDefined = true;
     };
 
-    var stationAttributeDefined = !(typeof this.GetAttribute(STATION_ID_ATTRIBUTE) === 'undefined');
+    // Overwrite station or use station from user setting?
+    var stationAttributeDefined;
     if (!(typeof intentObj === 'undefined') && intentObj.name == 'SetStation') {
         stationAttributeDefined = false;
-    };
+    } else {
+        stationAttributeDefined = !(typeof this.GetAttribute(STATION_ID_ATTRIBUTE) === 'undefined');
+    }
 
+    // Do we have all required information?
     if (!stationSlotDefined && !stationAttributeDefined) {
         console.log('SetStation:beforeDelegate');
         this.Alexa.emit(':delegate');
