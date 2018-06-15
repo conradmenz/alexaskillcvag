@@ -97,9 +97,9 @@ CVAGDataHelper.prototype.formatTime = function(time) {
 };
 
 CVAGDataHelper.prototype.findFirstDepartureByDirection = function(stops, directionID) {
-	var destinationNames = this.getDestinationNamesByDirectionID(directionID);
 	for (let index = 0; index < stops.length; index++) {
 		var stop = stops[index];
+		var destinationNames = this.getDestinationNamesByDirectionID(directionID, stop.line);
 		if(destinationNames.indexOf(stop.destination) >= 0) {
 			return stop;
 		};
@@ -107,7 +107,7 @@ CVAGDataHelper.prototype.findFirstDepartureByDirection = function(stops, directi
 	return stops[0];
 };
 
-CVAGDataHelper.prototype.getDestinationNamesByDirectionID = function(directionID) {
+CVAGDataHelper.prototype.getDestinationNamesByDirectionID = function(directionID, line) {
 	if(directionID == '1') {
 		return ['Heimgarten', 'Gablenz', 'Zentralhaltestelle'];
 	} else {
